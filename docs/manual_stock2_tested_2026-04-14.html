@@ -1,0 +1,255 @@
+﻿<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>คู่มือใช้งาน Stock2 (ทดสอบแล้ว) - 14 April 2026</title>
+  <style>
+    :root {
+      --bg: #f2f5fa;
+      --card: #ffffff;
+      --line: #dbe4f0;
+      --text: #0f172a;
+      --sub: #334155;
+      --brand: #0b5fff;
+      --ok: #0e7a4a;
+      --warn: #9a3412;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: radial-gradient(1200px 400px at 10% -20%, #dbe8ff 0%, transparent 60%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap { max-width: 1180px; margin: 26px auto; padding: 0 16px 28px; }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(15,23,42,.05);
+    }
+    .hero { padding: 20px; margin-bottom: 14px; }
+    .card { padding: 16px; margin-bottom: 14px; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      border-left: 5px solid var(--brand);
+      padding-left: 10px;
+    }
+    h3 { margin: 14px 0 8px; font-size: 17px; }
+    p { margin: 6px 0; color: var(--sub); }
+    ul, ol { margin: 8px 0 8px 22px; color: var(--sub); }
+    li { margin: 3px 0; }
+    code {
+      background: #eef3fb;
+      border: 1px solid #d8e3f3;
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-family: Consolas, "Courier New", monospace;
+      color: #0f3f86;
+      font-size: 90%;
+    }
+    .badge {
+      display: inline-block;
+      margin: 4px 8px 0 0;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #c6d6f0;
+      background: #eef4ff;
+      color: #1e3a8a;
+      font-size: 13px;
+    }
+    .status-ok { color: var(--ok); font-weight: 700; }
+    .status-warn { color: var(--warn); font-weight: 700; }
+    .toc a { color: #1d4ed8; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .shot {
+      border: 1px solid #cfdae9;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+      background: #fff;
+    }
+    .shot img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .cap {
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #46607d;
+      background: #f7faff;
+      border-top: 1px solid #d8e3f2;
+    }
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .kpi > div {
+      border: 1px solid #d7e2f3;
+      border-radius: 10px;
+      padding: 10px;
+      background: #f9fbff;
+    }
+    .foot {
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>คู่มือใช้งาน Stock2 (ทดสอบระบบแล้ว)</h1>
+      <p>เอกสารฉบับนี้จัดทำจากการทดสอบระบบจริงที่ <code>http://localhost:888/stock2/</code> พร้อมภาพหน้าจอ Web GUI จริง</p>
+      <p>
+        <span class="badge">วันที่ทดสอบ: 14 April 2026</span>
+        <span class="badge">ผู้ใช้ทดสอบ: <code>222 / 222</code></span>
+        <span class="badge">โฟลเดอร์ภาพ: <code>docs/manual_images</code></span>
+      </p>
+    </section>
+
+    <section class="card toc">
+      <h2>สารบัญ</h2>
+      <ol>
+        <li><a href="#scope">ขอบเขตและผลการทดสอบ</a></li>
+        <li><a href="#start">วิธีเริ่มใช้งานระบบ</a></li>
+        <li><a href="#screens">คำอธิบายแต่ละหน้าจอพร้อมรูป</a></li>
+        <li><a href="#flow">ตัวอย่างลำดับการใช้งานจริง</a></li>
+        <li><a href="#troubleshoot">การแก้ปัญหาเบื้องต้น</a></li>
+      </ol>
+    </section>
+
+    <section class="card" id="scope">
+      <h2>1) ขอบเขตและผลการทดสอบ</h2>
+      <p>ทดสอบผ่านสคริปต์ระบบ (Smoke Tests) และหน้า Web GUI หลัก</p>
+      <div class="kpi">
+        <div><strong>Legacy 1:1 Smoke Test</strong><br><span class="status-ok">PASS</span><br>Login, Dashboard, Module, CRUD, Delete</div>
+        <div><strong>GL/HR Smoke Test</strong><br><span class="status-ok">PASS</span><br>Journal, Payroll data, Business API reports</div>
+        <div><strong>MFG Suite Smoke Test</strong><br><span class="status-ok">PASS</span><br>BOM, Routing, APS, SPC, Maintenance, Dashboard</div>
+      </div>
+      <h3>สคริปต์ที่ใช้ทดสอบ</h3>
+      <ul>
+        <li><code>scripts/smoke_test_stock2.ps1</code></li>
+        <li><code>scripts/gl_hr_smoke_test.ps1</code></li>
+        <li><code>scripts/mfg_suite_smoke_test.ps1</code></li>
+      </ul>
+    </section>
+
+    <section class="card" id="start">
+      <h2>2) วิธีเริ่มใช้งานระบบ</h2>
+      <ol>
+        <li>เปิดเว็บ <code>http://localhost:888/stock2/</code></li>
+        <li>ล็อกอินด้วย <code>Username</code> และ <code>Password</code> ที่ได้รับสิทธิ์ใช้งาน</li>
+        <li>หลังล็อกอิน ให้เลือกเมนูจาก Sidebar ด้านซ้าย</li>
+        <li>สำหรับงาน CRUD ให้เข้า <code>?page=module&module=...</code> ตามโมดูลที่ต้องการ</li>
+      </ol>
+      <p>บัญชีตัวอย่างจากฐานข้อมูลเดิม: <code>222 / 222</code></p>
+    </section>
+
+    <section class="card" id="screens">
+      <h2>3) คำอธิบายแต่ละหน้าจอพร้อมรูป</h2>
+
+      <h3>3.1 หน้า Login</h3>
+      <p>ใช้ยืนยันตัวตนก่อนเข้าระบบ ถ้าข้อมูลไม่ถูกต้องจะเข้า Dashboard ไม่ได้</p>
+      <div class="shot">
+        <img src="manual_images/01_login.png" alt="login page">
+        <div class="cap">หน้าล็อกอินของระบบ Stock2</div>
+      </div>
+
+      <h3>3.2 หน้า Dashboard</h3>
+      <p>เป็นหน้าสรุปภาพรวมระบบและจุดเริ่มต้นก่อนเข้าโมดูลเฉพาะงาน</p>
+      <div class="shot">
+        <img src="manual_images/02_dashboard.png" alt="dashboard page">
+        <div class="cap">Dashboard หลังล็อกอินสำเร็จ</div>
+      </div>
+
+      <h3>3.3 หน้า Module (ตัวอย่าง: Sale Cash)</h3>
+      <p>เป็นหน้าจอทำงานหลักสำหรับจัดการข้อมูลแบบ CRUD (Add / Edit / Delete / Search / Export)</p>
+      <ul>
+        <li>ปุ่ม <code>Add Main</code> สำหรับเพิ่มข้อมูลหัวเอกสาร</li>
+        <li>ปุ่ม <code>Refresh</code> โหลดข้อมูลใหม่</li>
+        <li>ปุ่มรายงานเพื่อเปิดมุมมองเอกสาร/รายการ</li>
+      </ul>
+      <div class="shot">
+        <img src="manual_images/03_module_sale_cash.png" alt="module sale cash page">
+        <div class="cap">หน้าจอโมดูล sale_cash</div>
+      </div>
+
+      <h3>3.4 หน้า Report (Sale Cash List)</h3>
+      <p>ใช้ดูรายงานรายการเอกสารในรูปแบบที่พิมพ์หรือส่งออกได้</p>
+      <div class="shot">
+        <img src="manual_images/04_report_sale_cash_list.png" alt="report sale cash list">
+        <div class="cap">รายงานแบบรายการของโมดูล sale_cash</div>
+      </div>
+
+      <h3>3.5 หน้า Department Access</h3>
+      <p>ใช้กำหนด/ตรวจสอบสิทธิ์ตามแผนก ว่าแต่ละแผนกเข้าถึงหน้าจอไหนได้บ้าง</p>
+      <div class="shot">
+        <img src="manual_images/05_department_access.png" alt="department access">
+        <div class="cap">หน้าจัดการสิทธิ์ตามแผนก</div>
+      </div>
+
+      <h3>3.6 หน้า Admin Access</h3>
+      <p>ใช้บริหารสิทธิ์รายผู้ใช้ เช่น View / Add / Edit / Delete / Report ตามโมดูล</p>
+      <div class="shot">
+        <img src="manual_images/06_admin_access.png" alt="admin access">
+        <div class="cap">หน้าจัดการสิทธิ์ระดับผู้ดูแล</div>
+      </div>
+
+      <h3>3.7 หน้า ERP Flow</h3>
+      <p>ใช้ดูและทดสอบ flow ทางธุรกิจแบบ end-to-end ระหว่างโมดูล</p>
+      <div class="shot">
+        <img src="manual_images/07_erp_flow.png" alt="erp flow">
+        <div class="cap">หน้าจอ ERP Flow</div>
+      </div>
+
+      <h3>3.8 หน้า Capture Screen</h3>
+      <p>ใช้อัปโหลดรูปหลักฐานหน้าจอการทำงาน พร้อม metadata (module/stage/department/doc ref)</p>
+      <div class="shot">
+        <img src="manual_images/08_capture_screen.png" alt="capture screen">
+        <div class="cap">หน้าจอ Screen Capture Log</div>
+      </div>
+
+      <h3>3.9 หน้า Business Report (GL Trial Balance)</h3>
+      <p>หน้ารายงานสายบัญชี/การเงิน สำหรับตรวจสอบผลรวมเดบิตเครดิตตามช่วงเวลา</p>
+      <div class="shot">
+        <img src="manual_images/09_business_report_trial_balance.png" alt="business report trial balance">
+        <div class="cap">รายงาน GL Trial Balance</div>
+      </div>
+    </section>
+
+    <section class="card" id="flow">
+      <h2>4) ตัวอย่างลำดับการใช้งานจริง (แนะนำ)</h2>
+      <ol>
+        <li>ล็อกอินเข้าระบบ</li>
+        <li>ตรวจสิทธิ์จาก <code>Department Access</code> / <code>Admin Access</code> (เฉพาะผู้ดูแล)</li>
+        <li>เข้าโมดูลงาน เช่น <code>sale_cash</code> เพื่อทำ CRUD เอกสาร</li>
+        <li>เปิด <code>report.php</code> เพื่อตรวจผลรายงาน</li>
+        <li>ถ้าต้องเก็บหลักฐานขั้นตอน ให้เปิด <code>capture_screen.php</code> และอัปโหลดภาพพร้อมหมายเหตุ</li>
+      </ol>
+    </section>
+
+    <section class="card" id="troubleshoot">
+      <h2>5) การแก้ปัญหาเบื้องต้น</h2>
+      <ul>
+        <li>เข้าเว็บไม่ได้: ตรวจ Apache/XAMPP ว่ารันอยู่ และ URL ถูกต้อง</li>
+        <li>ล็อกอินไม่ได้: ตรวจ username/password และสิทธิ์ในฐานข้อมูล</li>
+        <li>หน้าโมดูลว่าง: ตรวจสิทธิ์ผู้ใช้ใน <code>user_access</code> / <code>user_module_access</code></li>
+        <li>รายงานไม่ขึ้น: ตรวจว่ามีข้อมูลในตารางต้นทาง และช่วงวันที่ถูกต้อง</li>
+      </ul>
+      <p class="status-warn">หมายเหตุ: สิทธิ์แต่ละบัญชีอาจเห็นเมนูไม่เหมือนกัน</p>
+    </section>
+
+    <div class="foot">เอกสารนี้ถูกสร้างอัตโนมัติจากการทดสอบระบบจริงของเครื่อง local</div>
+  </div>
+</body>
+</html>

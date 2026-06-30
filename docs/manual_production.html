@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Production Department Manual | SynergyERP Department Manual</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --line: #d4deea;
+            --ink: #1f2d3d;
+            --muted: #50657d;
+            --accent: #0e7490;
+            --ok: #0f766e;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.45;
+        }
+        .wrap { max-width: 1180px; margin: 0 auto; padding: 18px; }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+        h1, h2, h3 { margin: 0 0 10px 0; color: #143a52; }
+        h1 { font-size: 1.5rem; }
+        h2 { font-size: 1.06rem; border-bottom: 2px solid #e4edf6; padding-bottom: 6px; }
+        h3 { font-size: .96rem; margin-top: 4px; }
+        .muted { color: var(--muted); }
+        .pill {
+            display: inline-block;
+            border: 1px solid #9eb3cb;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: .75rem;
+            margin-right: 6px;
+            background: #edf4fc;
+        }
+        .grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        .col-6 { grid-column: span 6; }
+        .col-12 { grid-column: span 12; }
+        @media (max-width: 980px) {
+            .col-6 { grid-column: span 12; }
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: .88rem;
+        }
+        th, td {
+            border: 1px solid var(--line);
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        th {
+            background: #edf4fb;
+            text-align: left;
+            white-space: nowrap;
+        }
+        code {
+            background: #edf2f7;
+            border: 1px solid #d7e1ec;
+            border-radius: 4px;
+            padding: 1px 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        }
+        .checklist li { margin: 4px 0; }
+        .ok { color: var(--ok); }
+        a { color: var(--accent); text-decoration: none; }
+        @media print {
+            body { background: #fff; }
+            .card { border-color: #b9c4d3; }
+            a { color: #000; text-decoration: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <section class="card">
+        <h1>Production Department Manual</h1>
+        <div class="muted">Generated: 2026-04-16 14:40:55 | Static File: <code>docs/manual_production.html</code></div>
+        <div style="margin-top:8px;">
+            <span class="pill">PRODUCTION</span>
+            <span class="pill">Upstream: Project planning, material issue from Warehouse</span>
+            <span class="pill">Downstream: Finished Goods Warehouse, QA, Maintenance, Accounting</span>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Role Objective</h2>
+        <p style="margin:0;">Execute production plan using controlled BOM/routing, collect shop floor data, and release quality-approved lots.</p>
+    </section>
+
+    <section class="card">
+        <h2>Screen Scope</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Module Key</th>
+                <th>Open Screen</th>
+                <th>Main Purpose</th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                    <td>1</td>
+                    <td><code>erp_flow_console</code></td>
+                    <td><code>erp_flow.php</code></td>
+                    <td>Run end-to-end project flow</td>
+                </tr>
+                            <tr>
+                    <td>2</td>
+                    <td><code>mfg_bom_header</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_bom_header</code></td>
+                    <td>Versioned BOM master</td>
+                </tr>
+                            <tr>
+                    <td>3</td>
+                    <td><code>mfg_routing_step</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_routing_step</code></td>
+                    <td>Operation routing and centers</td>
+                </tr>
+                            <tr>
+                    <td>4</td>
+                    <td><code>mfg_production_order</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_production_order</code></td>
+                    <td>Production order release</td>
+                </tr>
+                            <tr>
+                    <td>5</td>
+                    <td><code>mfg_aps_schedule</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_aps_schedule</code></td>
+                    <td>Scheduling board</td>
+                </tr>
+                            <tr>
+                    <td>6</td>
+                    <td><code>mfg_job_sheet</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_job_sheet</code></td>
+                    <td>Digital execution records</td>
+                </tr>
+                            <tr>
+                    <td>7</td>
+                    <td><code>mfg_qms_result</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_qms_result</code></td>
+                    <td>QC decision and SPC feed</td>
+                </tr>
+                        </tbody>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Daily Checklist</h2>
+        <div class="grid">
+            <div class="col-6 card" style="margin:0;">
+                <h3>Start of Day</h3>
+                <ol class="checklist">
+                                            <li>Verify production orders and APS priorities.</li>
+                                            <li>Confirm material availability from Production Warehouse.</li>
+                                            <li>Validate approved BOM/routing version before launch.</li>
+                                    </ol>
+            </div>
+            <div class="col-6 card" style="margin:0;">
+                <h3>Operations</h3>
+                <ol class="checklist">
+                                            <li>Run job sheets per operation and record machine/operator result.</li>
+                                            <li>Collect IoT or runtime data for performance and maintenance.</li>
+                                            <li>Submit inspection results and isolate failed lots immediately.</li>
+                                            <li>Release only PASS lots to Finished Goods warehouse.</li>
+                                    </ol>
+            </div>
+            <div class="col-12 card" style="margin:0;">
+                <h3>Close of Day</h3>
+                <ol class="checklist">
+                                            <li>Close completed operations and update order status.</li>
+                                            <li>Review bottleneck/idle-time and open maintenance risk.</li>
+                                            <li>Capture execution timeline evidence by order and lot.</li>
+                                    </ol>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Audit Evidence To Capture</h2>
+        <ol class="checklist">
+                            <li>APS board snapshot before dispatch.</li>
+                            <li>Digital job sheet completion and operator sign-off.</li>
+                            <li>QMS PASS/FAIL screen and released lot record.</li>
+                    </ol>
+        <p class="muted" style="margin:8px 0 0 0;">Use <code>capture_screen.php</code> and tag each screenshot with <code>module_key</code>, <code>process_stage</code>, <code>project_code</code>, <code>run_no</code>, and <code>doc_ref</code>.</p>
+    </section>
+
+    <section class="card">
+        <h2>Role KPIs</h2>
+        <ul class="checklist">
+                            <li class="ok">Plan adherence &gt;= target.</li>
+                            <li class="ok">OEE/utilization trend up and downtime trend down.</li>
+                            <li class="ok">First-pass quality rate &gt;= target.</li>
+                    </ul>
+    </section>
+
+    <section class="card">
+        <h2>Related Manuals</h2>
+        <ul>
+            <li><a href="user_manual_departments.html">Department Manual Index</a></li>
+            <li><a href="user_manual_full.html">Full ERP Manual (All Screens)</a></li>
+        </ul>
+        <p class="muted" style="margin:0;">Generated by <code>scripts/build_department_manuals.php</code>.</p>
+    </section>
+</div>
+</body>
+</html>
+    

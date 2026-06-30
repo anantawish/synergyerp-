@@ -1,0 +1,123 @@
+{
+    "generated_at": "2026-04-15T05:08:58+07:00",
+    "source": "setup_doc3_role_users.php",
+    "roles": [
+        {
+            "department_code": "ADMIN",
+            "department_label": "Admin",
+            "user_id": 40,
+            "username": "doc3_admin",
+            "password": "doc3_admin_2026",
+            "name": "Doc3 Admin",
+            "module_view_count": 101,
+            "module_add_count": 77,
+            "module_edit_count": 77,
+            "module_delete_count": 77,
+            "module_report_count": 101
+        },
+        {
+            "department_code": "PURCHASE",
+            "department_label": "Purchasing",
+            "user_id": 41,
+            "username": "doc3_purchase",
+            "password": "doc3_purchase_2026",
+            "name": "Doc3 Purchase",
+            "module_view_count": 14,
+            "module_add_count": 14,
+            "module_edit_count": 14,
+            "module_delete_count": 0,
+            "module_report_count": 14
+        },
+        {
+            "department_code": "HR",
+            "department_label": "HR",
+            "user_id": 42,
+            "username": "doc3_hr",
+            "password": "doc3_hr_2026",
+            "name": "Doc3 HR",
+            "module_view_count": 11,
+            "module_add_count": 7,
+            "module_edit_count": 7,
+            "module_delete_count": 0,
+            "module_report_count": 11
+        },
+        {
+            "department_code": "SALE",
+            "department_label": "Sales",
+            "user_id": 43,
+            "username": "doc3_sale",
+            "password": "doc3_sale_2026",
+            "name": "Doc3 Sale",
+            "module_view_count": 13,
+            "module_add_count": 13,
+            "module_edit_count": 13,
+            "module_delete_count": 0,
+            "module_report_count": 13
+        },
+        {
+            "department_code": "ACCOUNT",
+            "department_label": "Accounting",
+            "user_id": 44,
+            "username": "doc3_account",
+            "password": "doc3_account_2026",
+            "name": "Doc3 Account",
+            "module_view_count": 14,
+            "module_add_count": 10,
+            "module_edit_count": 10,
+            "module_delete_count": 0,
+            "module_report_count": 14
+        },
+        {
+            "department_code": "POS",
+            "department_label": "POS",
+            "user_id": 45,
+            "username": "doc3_pos",
+            "password": "doc3_pos_2026",
+            "name": "Doc3 POS",
+            "module_view_count": 5,
+            "module_add_count": 5,
+            "module_edit_count": 5,
+            "module_delete_count": 0,
+            "module_report_count": 0
+        },
+        {
+            "department_code": "WAREHOUSE",
+            "department_label": "Warehouse",
+            "user_id": 46,
+            "username": "doc3_warehouse",
+            "password": "doc3_warehouse_2026",
+            "name": "Doc3 Warehouse",
+            "module_view_count": 12,
+            "module_add_count": 12,
+            "module_edit_count": 12,
+            "module_delete_count": 0,
+            "module_report_count": 12
+        },
+        {
+            "department_code": "PRODUCTION",
+            "department_label": "Production",
+            "user_id": 47,
+            "username": "doc3_production",
+            "password": "doc3_production_2026",
+            "name": "Doc3 Production",
+            "module_view_count": 45,
+            "module_add_count": 30,
+            "module_edit_count": 30,
+            "module_delete_count": 0,
+            "module_report_count": 45
+        },
+        {
+            "department_code": "AUDIT",
+            "department_label": "Audit / QA",
+            "user_id": 48,
+            "username": "doc3_audit",
+            "password": "doc3_audit_2026",
+            "name": "Doc3 Audit",
+            "module_view_count": 24,
+            "module_add_count": 8,
+            "module_edit_count": 8,
+            "module_delete_count": 0,
+            "module_report_count": 24
+        }
+    ]
+}

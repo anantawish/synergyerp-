@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Audit And QA Department Manual | SynergyERP Department Manual</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --line: #d4deea;
+            --ink: #1f2d3d;
+            --muted: #50657d;
+            --accent: #0e7490;
+            --ok: #0f766e;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.45;
+        }
+        .wrap { max-width: 1180px; margin: 0 auto; padding: 18px; }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+        h1, h2, h3 { margin: 0 0 10px 0; color: #143a52; }
+        h1 { font-size: 1.5rem; }
+        h2 { font-size: 1.06rem; border-bottom: 2px solid #e4edf6; padding-bottom: 6px; }
+        h3 { font-size: .96rem; margin-top: 4px; }
+        .muted { color: var(--muted); }
+        .pill {
+            display: inline-block;
+            border: 1px solid #9eb3cb;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: .75rem;
+            margin-right: 6px;
+            background: #edf4fc;
+        }
+        .grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        .col-6 { grid-column: span 6; }
+        .col-12 { grid-column: span 12; }
+        @media (max-width: 980px) {
+            .col-6 { grid-column: span 12; }
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: .88rem;
+        }
+        th, td {
+            border: 1px solid var(--line);
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        th {
+            background: #edf4fb;
+            text-align: left;
+            white-space: nowrap;
+        }
+        code {
+            background: #edf2f7;
+            border: 1px solid #d7e1ec;
+            border-radius: 4px;
+            padding: 1px 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        }
+        .checklist li { margin: 4px 0; }
+        .ok { color: var(--ok); }
+        a { color: var(--accent); text-decoration: none; }
+        @media print {
+            body { background: #fff; }
+            .card { border-color: #b9c4d3; }
+            a { color: #000; text-decoration: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <section class="card">
+        <h1>Audit And QA Department Manual</h1>
+        <div class="muted">Generated: 2026-04-16 14:40:55 | Static File: <code>docs/manual_audit.html</code></div>
+        <div style="margin-top:8px;">
+            <span class="pill">AUDIT / QA</span>
+            <span class="pill">Upstream: All operational departments</span>
+            <span class="pill">Downstream: Management review, internal/external audit</span>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Role Objective</h2>
+        <p style="margin:0;">Independently verify process compliance and maintain evidence package from operation screens and reports.</p>
+    </section>
+
+    <section class="card">
+        <h2>Screen Scope</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Module Key</th>
+                <th>Open Screen</th>
+                <th>Main Purpose</th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                    <td>1</td>
+                    <td><code>erp_screen_capture</code></td>
+                    <td><code>capture_screen.php</code></td>
+                    <td>Store screenshot evidence</td>
+                </tr>
+                            <tr>
+                    <td>2</td>
+                    <td><code>erp_flow_console</code></td>
+                    <td><code>erp_flow.php</code></td>
+                    <td>Validate end-to-end flow timeline</td>
+                </tr>
+                            <tr>
+                    <td>3</td>
+                    <td><code>report_list</code></td>
+                    <td><code>report.php</code></td>
+                    <td>Module report verification</td>
+                </tr>
+                            <tr>
+                    <td>4</td>
+                    <td><code>business_reports</code></td>
+                    <td><code>business_report.php</code></td>
+                    <td>GL/HR compliance reports</td>
+                </tr>
+                            <tr>
+                    <td>5</td>
+                    <td><code>manufacturing_reports</code></td>
+                    <td><code>manufacturing_report.php</code></td>
+                    <td>Manufacturing traceability and control reports</td>
+                </tr>
+                            <tr>
+                    <td>6</td>
+                    <td><code>department_access</code></td>
+                    <td><code>department_access.php</code></td>
+                    <td>Role permission matrix review</td>
+                </tr>
+                        </tbody>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Daily Checklist</h2>
+        <div class="grid">
+            <div class="col-6 card" style="margin:0;">
+                <h3>Start of Day</h3>
+                <ol class="checklist">
+                                            <li>Review audit plan and critical transactions for the day.</li>
+                                            <li>Check rights changes and high-risk module activity.</li>
+                                            <li>Prepare evidence naming and reference standards.</li>
+                                    </ol>
+            </div>
+            <div class="col-6 card" style="margin:0;">
+                <h3>Operations</h3>
+                <ol class="checklist">
+                                            <li>Validate transaction trace from source to report output.</li>
+                                            <li>Capture key screens with stage code and document reference.</li>
+                                            <li>Cross-check warehouse, production, and accounting consistency.</li>
+                                            <li>Log nonconformities with reproducible screenshot evidence.</li>
+                                    </ol>
+            </div>
+            <div class="col-12 card" style="margin:0;">
+                <h3>Close of Day</h3>
+                <ol class="checklist">
+                                            <li>Compile evidence set by project/run and department.</li>
+                                            <li>Issue finding summary with severity and owner.</li>
+                                            <li>Verify corrective actions and reopen unresolved critical points.</li>
+                                    </ol>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Audit Evidence To Capture</h2>
+        <ol class="checklist">
+                            <li>Permission matrix and affected user scope.</li>
+                            <li>Process timeline screen with linked document references.</li>
+                            <li>Financial and inventory report snapshots for reconciliation.</li>
+                    </ol>
+        <p class="muted" style="margin:8px 0 0 0;">Use <code>capture_screen.php</code> and tag each screenshot with <code>module_key</code>, <code>process_stage</code>, <code>project_code</code>, <code>run_no</code>, and <code>doc_ref</code>.</p>
+    </section>
+
+    <section class="card">
+        <h2>Role KPIs</h2>
+        <ul class="checklist">
+                            <li class="ok">Audit coverage of critical steps = 100%.</li>
+                            <li class="ok">All critical findings have owner and target date.</li>
+                            <li class="ok">Evidence package completeness pass before sign-off.</li>
+                    </ul>
+    </section>
+
+    <section class="card">
+        <h2>Related Manuals</h2>
+        <ul>
+            <li><a href="user_manual_departments.html">Department Manual Index</a></li>
+            <li><a href="user_manual_full.html">Full ERP Manual (All Screens)</a></li>
+        </ul>
+        <p class="muted" style="margin:0;">Generated by <code>scripts/build_department_manuals.php</code>.</p>
+    </section>
+</div>
+</body>
+</html>
+    

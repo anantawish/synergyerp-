@@ -1,0 +1,451 @@
+{
+    "metadata":  {
+                     "base_url":  "https://smartsynergyconsulting.com/synergyerp/",
+                     "username":  "222",
+                     "started_at":  "2026-04-29 02:30:02",
+                     "output_json":  "C:\\Temp\\uat_synergyerp_20260429_023002.json",
+                     "output_html":  "C:\\Temp\\uat_synergyerp_20260429_023002.html",
+                     "output_pdf":  "C:\\Temp\\uat_synergyerp_20260429_023002.pdf",
+                     "ftp_enabled":  true,
+                     "ftp_remote_dir":  "public_html/synergyerp/docs/uat",
+                     "ended_at":  "2026-04-29 02:30:06",
+                     "duration_seconds":  4
+                 },
+    "checks":  [
+                   {
+                       "name":  "Open login page",
+                       "status":  "PASS",
+                       "detail":  "Login page reachable",
+                       "at":  "2026-04-29 02:30:03"
+                   },
+                   {
+                       "name":  "Login",
+                       "status":  "PASS",
+                       "detail":  "Authenticated user session established",
+                       "at":  "2026-04-29 02:30:03"
+                   },
+                   {
+                       "name":  "Select test product",
+                       "status":  "PASS",
+                       "detail":  "product_code=prd00027",
+                       "at":  "2026-04-29 02:30:03"
+                   },
+                   {
+                       "name":  "Create ERP project",
+                       "status":  "PASS",
+                       "detail":  "project_id=20, project_code=UATPRJ-20260429023003",
+                       "at":  "2026-04-29 02:30:03"
+                   },
+                   {
+                       "name":  "Run ERP full flow",
+                       "status":  "PASS",
+                       "detail":  "run_id=20, status=DONE, steps=14",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage PROC_PO",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage PROC_RECEIVE",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage WH_MAIN_TO_PROD",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage AP_BILL",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage AP_PAY",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage MFG_ORDER",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage MFG_APS",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage MFG_EXEC",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage WH_STOCK_IN",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage WH_FG_TO_PACK",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage WH_SHIP_OUT",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage SALE_INVOICE",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage GL_POST",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Stage GL_BALANCE_SHEET",
+                       "status":  "PASS",
+                       "detail":  "Found",
+                       "at":  "2026-04-29 02:30:04"
+                   },
+                   {
+                       "name":  "Flow timeline",
+                       "status":  "PASS",
+                       "detail":  "timeline_steps=14",
+                       "at":  "2026-04-29 02:30:05"
+                   },
+                   {
+                       "name":  "ERP dashboard summary",
+                       "status":  "PASS",
+                       "detail":  "runs_done=19",
+                       "at":  "2026-04-29 02:30:05"
+                   },
+                   {
+                       "name":  "GL journal post",
+                       "status":  "PASS",
+                       "detail":  "journal_id=42, journal_no=UATJV-20260429023005",
+                       "at":  "2026-04-29 02:30:05"
+                   },
+                   {
+                       "name":  "Business API (GL/TAX/BS)",
+                       "status":  "PASS",
+                       "detail":  "trial_balance + ledger + tax_summary + balance_sheet",
+                       "at":  "2026-04-29 02:30:05"
+                   },
+                   {
+                       "name":  "Warehouse barcode IN/OUT",
+                       "status":  "PASS",
+                       "detail":  "slot=FG_WH/L01/S01",
+                       "at":  "2026-04-29 02:30:05"
+                   },
+                   {
+                       "name":  "Page readiness (Purchase/Warehouse/Production/Sales/Accounting)",
+                       "status":  "PASS",
+                       "detail":  "All selected pages reachable and render without fatal errors",
+                       "at":  "2026-04-29 02:30:06"
+                   }
+               ],
+    "flow":  {
+                 "project_id":  20,
+                 "project_code":  "UATPRJ-20260429023003",
+                 "run_id":  20,
+                 "run_no":  "FLOW-20260429023005-956",
+                 "run_status":  "DONE",
+                 "steps":  [
+                               {
+                                   "id":  247,
+                                   "run_id":  20,
+                                   "seq_no":  10,
+                                   "stage_code":  "PROC_PO",
+                                   "stage_name":  "Purchase Order",
+                                   "module_key":  "buy_order",
+                                   "ref_table":  null,
+                                   "ref_id":  "83",
+                                   "ref_no":  "ord00094",
+                                   "status":  "DONE",
+                                   "note":  "PO created",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  248,
+                                   "run_id":  20,
+                                   "seq_no":  20,
+                                   "stage_code":  "PROC_RECEIVE",
+                                   "stage_name":  "Purchase Receive",
+                                   "module_key":  "buy_credit",
+                                   "ref_table":  null,
+                                   "ref_id":  "98",
+                                   "ref_no":  "bcd00083",
+                                   "status":  "DONE",
+                                   "note":  "Goods received",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  249,
+                                   "run_id":  20,
+                                   "seq_no":  30,
+                                   "stage_code":  "WH_MAIN_TO_PROD",
+                                   "stage_name":  "Main WH -\u003e Production WH",
+                                   "module_key":  "transfer_stock",
+                                   "ref_table":  null,
+                                   "ref_id":  "30",
+                                   "ref_no":  "TR-MP-20260429023005-300",
+                                   "status":  "DONE",
+                                   "note":  "Material issued to production warehouse",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  250,
+                                   "run_id":  20,
+                                   "seq_no":  40,
+                                   "stage_code":  "AP_BILL",
+                                   "stage_name":  "AP Billing",
+                                   "module_key":  "creditor_billing",
+                                   "ref_table":  null,
+                                   "ref_id":  "69",
+                                   "ref_no":  "cbl00067",
+                                   "status":  "DONE",
+                                   "note":  "Creditor bill posted",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  251,
+                                   "run_id":  20,
+                                   "seq_no":  50,
+                                   "stage_code":  "AP_PAY",
+                                   "stage_name":  "AP Payment",
+                                   "module_key":  "creditor_paid",
+                                   "ref_table":  null,
+                                   "ref_id":  "54",
+                                   "ref_no":  "cdp00054",
+                                   "status":  "DONE",
+                                   "note":  "Creditor payment done",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  252,
+                                   "run_id":  20,
+                                   "seq_no":  60,
+                                   "stage_code":  "MFG_ORDER",
+                                   "stage_name":  "Production Order",
+                                   "module_key":  "mfg_production_order",
+                                   "ref_table":  null,
+                                   "ref_id":  "32",
+                                   "ref_no":  "MO-UATPRJ20260429023003-023005",
+                                   "status":  "DONE",
+                                   "note":  "Production order released",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  253,
+                                   "run_id":  20,
+                                   "seq_no":  70,
+                                   "stage_code":  "MFG_APS",
+                                   "stage_name":  "APS Scheduling",
+                                   "module_key":  "mfg_aps_schedule",
+                                   "ref_table":  null,
+                                   "ref_id":  null,
+                                   "ref_no":  null,
+                                   "status":  "DONE",
+                                   "note":  "Scheduled rows: 0",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  254,
+                                   "run_id":  20,
+                                   "seq_no":  80,
+                                   "stage_code":  "MFG_EXEC",
+                                   "stage_name":  "Production Execution",
+                                   "module_key":  "mfg_job_sheet",
+                                   "ref_table":  null,
+                                   "ref_id":  "32",
+                                   "ref_no":  null,
+                                   "status":  "DONE",
+                                   "note":  "Digital job sheet done",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  255,
+                                   "run_id":  20,
+                                   "seq_no":  90,
+                                   "stage_code":  "WH_STOCK_IN",
+                                   "stage_name":  "FG Stock In",
+                                   "module_key":  "mfg_lot",
+                                   "ref_table":  null,
+                                   "ref_id":  "45",
+                                   "ref_no":  "LOT-UATPRJ20260429023003-023005",
+                                   "status":  "DONE",
+                                   "note":  "FG received into inventory",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  256,
+                                   "run_id":  20,
+                                   "seq_no":  100,
+                                   "stage_code":  "WH_FG_TO_PACK",
+                                   "stage_name":  "FG WH -\u003e Packing WH",
+                                   "module_key":  "transfer_stock",
+                                   "ref_table":  null,
+                                   "ref_id":  "31",
+                                   "ref_no":  "TR-FP-20260429023005-878",
+                                   "status":  "DONE",
+                                   "note":  "Finished goods moved to packing warehouse",
+                                   "event_time":  "2026-04-29 02:30:05"
+                               },
+                               {
+                                   "id":  257,
+                                   "run_id":  20,
+                                   "seq_no":  110,
+                                   "stage_code":  "WH_SHIP_OUT",
+                                   "stage_name":  "Shipment / Delivery",
+                                   "module_key":  "client_receive",
+                                   "ref_table":  null,
+                                   "ref_id":  "176",
+                                   "ref_no":  "crv00063",
+                                   "status":  "DONE",
+                                   "note":  "Goods delivered to customer",
+                                   "event_time":  "2026-04-29 02:30:06"
+                               },
+                               {
+                                   "id":  258,
+                                   "run_id":  20,
+                                   "seq_no":  120,
+                                   "stage_code":  "SALE_INVOICE",
+                                   "stage_name":  "Sales Invoice / POS",
+                                   "module_key":  "sale_cash",
+                                   "ref_table":  null,
+                                   "ref_id":  "315",
+                                   "ref_no":  "sch00220",
+                                   "status":  "DONE",
+                                   "note":  "Cash sale completed",
+                                   "event_time":  "2026-04-29 02:30:06"
+                               },
+                               {
+                                   "id":  259,
+                                   "run_id":  20,
+                                   "seq_no":  130,
+                                   "stage_code":  "GL_POST",
+                                   "stage_name":  "GL Posting",
+                                   "module_key":  "gl_journal",
+                                   "ref_table":  null,
+                                   "ref_id":  "41",
+                                   "ref_no":  "JVF-20260429023006-11",
+                                   "status":  "DONE",
+                                   "note":  "Revenue posting completed",
+                                   "event_time":  "2026-04-29 02:30:06"
+                               },
+                               {
+                                   "id":  260,
+                                   "run_id":  20,
+                                   "seq_no":  140,
+                                   "stage_code":  "GL_BALANCE_SHEET",
+                                   "stage_name":  "Balance Sheet",
+                                   "module_key":  "gl_balance_sheet_report",
+                                   "ref_table":  null,
+                                   "ref_id":  null,
+                                   "ref_no":  null,
+                                   "status":  "DONE",
+                                   "note":  "Assets 47500 | L+E 47500",
+                                   "event_time":  "2026-04-29 02:30:06"
+                               }
+                           ]
+             },
+    "accounting":  {
+                       "journal_no":  "UATJV-20260429023005",
+                       "journal_id":  42,
+                       "trial_balance_rows":  2,
+                       "trial_balance_balanced":  "True",
+                       "total_debit":  "49000",
+                       "total_credit":  "49000",
+                       "ledger_rows":  42,
+                       "tax_rows":  1,
+                       "total_assets":  "49000",
+                       "total_liabilities_equity":  "49000",
+                       "balance_sheet_balanced":  "True"
+                   },
+    "warehouse":  {
+                      "slot":  "FG_WH/L01/S01",
+                      "product_id":  31,
+                      "product_code":  "prd00027",
+                      "in_bill":  "BCIO-20260429023007-462",
+                      "out_bill":  "BCIO-20260429023007-505",
+                      "recent_bill":  "BCIO-20260429023007-505"
+                  },
+    "pages":  [
+                  {
+                      "page":  "index.php?page=module\u0026module=buy_order",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "index.php?page=module\u0026module=transfer_stock",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "index.php?page=module\u0026module=mfg_production_order",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "index.php?page=module\u0026module=sale_cash",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "index.php?page=module\u0026module=gl_journal",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "business_report.php?report=gl_trial_balance",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "erp_flow.php",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  },
+                  {
+                      "page":  "barcode_io.php",
+                      "status":  "PASS",
+                      "http_status":  200,
+                      "detail":  "OK"
+                  }
+              ],
+    "errors":  [
+
+               ],
+    "summary":  {
+                    "outcome":  "PASS",
+                    "total_checks":  25,
+                    "passed_checks":  25,
+                    "failed_checks":  0
+                }
+}

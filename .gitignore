@@ -1,0 +1,13 @@
+config/app.local.php
+storage/cache/*
+storage/captures/_tmp*
+
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+node_modules/
+vendor/

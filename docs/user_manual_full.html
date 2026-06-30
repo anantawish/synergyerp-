@@ -1,0 +1,1710 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SynergyERP User Manual</title>
+    <style>
+        body { margin: 0; background: #f4f6fa; color: #1f2a37; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; line-height: 1.45; }
+        .wrap { max-width: 1320px; margin: 0 auto; padding: 18px; }
+        .card { background: #fff; border: 1px solid #d6dfeb; border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+        h1, h2, h3 { margin: 0 0 10px 0; color: #102a43; }
+        h1 { font-size: 1.55rem; }
+        h2 { font-size: 1.14rem; border-bottom: 2px solid #e7eef8; padding-bottom: 6px; }
+        h3 { font-size: 1rem; }
+        .muted { color: #4b5f75; }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+        table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+        th, td { border: 1px solid #d6dfeb; padding: 6px 8px; vertical-align: top; }
+        th { background: #eef4fb; text-align: left; white-space: nowrap; }
+        code { background: #ecf2f7; border: 1px solid #d7e2ef; border-radius: 4px; padding: 1px 4px; }
+        .toc a { text-decoration: none; color: #0b7285; }
+        .tag { display: inline-block; border: 1px solid #98b3cf; border-radius: 12px; padding: 1px 8px; font-size: .75rem; background: #edf5ff; margin-right: 6px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <section class="card">
+        <h1>SynergyERP Operations Manual</h1>
+        <div class="muted">Generated: 2026-04-16 14:40:55 | Scope: all configured screens + end-to-end process + audit evidence</div>
+        <div style="margin-top:8px;">
+            <span class="tag">Department-based access</span>
+            <span class="tag">Project-to-delivery flow</span>
+            <span class="tag">Accounting and balance sheet</span>
+            <span class="tag">Capture audit evidence</span>
+        </div>
+    </section>
+
+    <section class="card toc" id="toc">
+        <h2>Table Of Contents</h2>
+        <ol>
+            <li><a href="#prestart">Before Start</a></li>
+            <li><a href="#departments">Department Roles</a></li>
+            <li><a href="#flow">End-To-End Flow</a></li>
+            <li><a href="#capture">Capture Module</a></li>
+            <li><a href="#static-pages">Static Pages</a></li>
+            <li><a href="#module-catalog">Module Catalog</a></li>
+            <li><a href="#checklist">Close Checklist</a></li>
+        </ol>
+    </section>
+
+    <section class="card" id="prestart">
+        <h2>1) Before Start</h2>
+        <ol>
+            <li>Sign in at <code>index.php</code> and verify permission scope from <code>department_access.php</code> or <code>admin_access.php</code>.</li>
+            <li>Confirm core master data: items, customers/suppliers, chart of accounts, BOM/routing, warehouse mapping.</li>
+            <li>Prepare references for traceability: project code, document number, lot number, and run number.</li>
+            <li>Capture critical evidence using <code>capture_screen.php</code> during the process.</li>
+        </ol>
+    </section>
+
+    <section class="card" id="departments">
+        <h2>2) Department Roles</h2>
+        <table>
+            <thead><tr><th>Department</th><th>Scope</th><th>Main Screens</th><th>Expected Deliverables</th></tr></thead>
+            <tbody>
+                            <tr>
+                    <td class="mono">ADMIN</td>
+                    <td>Governance, users, rights, setup</td>
+                    <td class="mono">setup_user, admin_access.php, department_access.php, erp_flow.php, capture_screen.php</td>
+                    <td>User provisioning and permission matrix</td>
+                </tr>
+                            <tr>
+                    <td class="mono">PURCHASE</td>
+                    <td>Supplier cycle + inbound material</td>
+                    <td class="mono">buy_order, buy_credit, buy_cash, buy_sendback, creditor_billing, creditor_paid, mfg_purchase_req</td>
+                    <td>PO, GRN, AP billing/payment</td>
+                </tr>
+                            <tr>
+                    <td class="mono">WAREHOUSE</td>
+                    <td>Stock movement and lot trace</td>
+                    <td class="mono">stock_card, transfer_stock, mfg_inventory_snapshot, mfg_lot, mfg_lot_dispatch</td>
+                    <td>Main -&gt; Production -&gt; FG -&gt; Packing flow</td>
+                </tr>
+                            <tr>
+                    <td class="mono">PRODUCTION</td>
+                    <td>BOM/routing, plan, execute, QC</td>
+                    <td class="mono">mfg_bom_header, mfg_routing_step, mfg_production_order, mfg_aps_schedule, mfg_job_sheet, mfg_qms_result</td>
+                    <td>Released production lots</td>
+                </tr>
+                            <tr>
+                    <td class="mono">SALE / POS</td>
+                    <td>Order to delivery to billing</td>
+                    <td class="mono">quotation, booking, client_receive, sale_cash, sale_credit, sale_return</td>
+                    <td>Sales docs and delivery confirmation</td>
+                </tr>
+                            <tr>
+                    <td class="mono">ACCOUNT / FINANCE</td>
+                    <td>GL, tax, AP/AR, financial report</td>
+                    <td class="mono">gl_journal, gl_vat_tx, gl_withholding_tx, business_report.php, deptor_paid, creditor_paid</td>
+                    <td>Balanced ledger and statements</td>
+                </tr>
+                            <tr>
+                    <td class="mono">HR</td>
+                    <td>Attendance, leave, payroll</td>
+                    <td class="mono">hr_employee, hr_attendance, hr_leave_request, hr_payroll_period, hr_policy</td>
+                    <td>Payroll-ready HR dataset</td>
+                </tr>
+                            <tr>
+                    <td class="mono">AUDIT / QA</td>
+                    <td>Evidence and compliance check</td>
+                    <td class="mono">capture_screen.php, report.php, manufacturing_report.php, business_report.php</td>
+                    <td>Traceable audit package</td>
+                </tr>
+                        </tbody>
+        </table>
+    </section>
+
+    <section class="card" id="flow">
+        <h2>3) End-To-End Flow (Project to Delivery and Financial Close)</h2>
+        <table>
+            <thead><tr><th>Step</th><th>Owner</th><th>Action</th><th>Screen / Module</th><th>Output</th></tr></thead>
+            <tbody>
+                            <tr>
+                    <td class="mono">01</td>
+                    <td>ADMIN</td>
+                    <td>Prepare users and rights</td>
+                    <td class="mono">department_access.php, admin_access.php</td>
+                    <td>Users ready by department</td>
+                </tr>
+                            <tr>
+                    <td class="mono">02</td>
+                    <td>SALE</td>
+                    <td>Capture demand and customer order</td>
+                    <td class="mono">quotation, booking</td>
+                    <td>Confirmed sales demand</td>
+                </tr>
+                            <tr>
+                    <td class="mono">03</td>
+                    <td>PRODUCTION</td>
+                    <td>Create project and plan</td>
+                    <td class="mono">erp_flow.php, erp_project, mfg_production_order</td>
+                    <td>Project baseline</td>
+                </tr>
+                            <tr>
+                    <td class="mono">04</td>
+                    <td>PURCHASE</td>
+                    <td>Create purchase order</td>
+                    <td class="mono">buy_order, mfg_purchase_req</td>
+                    <td>Approved PO</td>
+                </tr>
+                            <tr>
+                    <td class="mono">05</td>
+                    <td>PURCHASE + WAREHOUSE</td>
+                    <td>Receive material</td>
+                    <td class="mono">buy_credit / buy_cash, stock_card</td>
+                    <td>RM stock increased</td>
+                </tr>
+                            <tr>
+                    <td class="mono">06</td>
+                    <td>WAREHOUSE</td>
+                    <td>Transfer Main -&gt; Production warehouse</td>
+                    <td class="mono">transfer_stock, mfg_material_reservation</td>
+                    <td>RM at production point</td>
+                </tr>
+                            <tr>
+                    <td class="mono">07</td>
+                    <td>PRODUCTION</td>
+                    <td>Execute production</td>
+                    <td class="mono">mfg_job_sheet, mfg_iot_log, mfg_lot_consumption</td>
+                    <td>WIP execution records</td>
+                </tr>
+                            <tr>
+                    <td class="mono">08</td>
+                    <td>PRODUCTION + QA</td>
+                    <td>Inspect and release</td>
+                    <td class="mono">mfg_qms_plan, mfg_qms_result, mfg_report_spc</td>
+                    <td>Released FG lot</td>
+                </tr>
+                            <tr>
+                    <td class="mono">09</td>
+                    <td>WAREHOUSE</td>
+                    <td>Receive FG into FG warehouse</td>
+                    <td class="mono">mfg_lot, mfg_inventory_snapshot</td>
+                    <td>FG ready</td>
+                </tr>
+                            <tr>
+                    <td class="mono">10</td>
+                    <td>WAREHOUSE</td>
+                    <td>Transfer FG -&gt; Packing warehouse</td>
+                    <td class="mono">transfer_stock, mfg_lot_dispatch</td>
+                    <td>Packed-ready stock</td>
+                </tr>
+                            <tr>
+                    <td class="mono">11</td>
+                    <td>SALE</td>
+                    <td>Deliver to customer</td>
+                    <td class="mono">client_receive, WH_SHIP_OUT</td>
+                    <td>Delivery completed</td>
+                </tr>
+                            <tr>
+                    <td class="mono">12</td>
+                    <td>SALE + ACCOUNT</td>
+                    <td>Invoice and AR posting</td>
+                    <td class="mono">sale_cash / sale_credit, deptor_billing</td>
+                    <td>Sales billing</td>
+                </tr>
+                            <tr>
+                    <td class="mono">13</td>
+                    <td>ACCOUNT + FINANCE</td>
+                    <td>AP/AR settlement and GL</td>
+                    <td class="mono">deptor_paid, creditor_paid, gl_journal</td>
+                    <td>Cash + ledger update</td>
+                </tr>
+                            <tr>
+                    <td class="mono">14</td>
+                    <td>ACCOUNT</td>
+                    <td>Run financial reports</td>
+                    <td class="mono">business_report.php</td>
+                    <td>Trial/Ledger/Tax/Balance Sheet</td>
+                </tr>
+                            <tr>
+                    <td class="mono">15</td>
+                    <td>AUDIT</td>
+                    <td>Capture and archive evidence</td>
+                    <td class="mono">capture_screen.php</td>
+                    <td>Audit package</td>
+                </tr>
+                        </tbody>
+        </table>
+    </section>
+
+    <section class="card" id="capture">
+        <h2>4) Capture Module (Audit Evidence)</h2>
+        <ol>
+            <li>Open <code>capture_screen.php</code> and choose the relevant <code>module_key</code>.</li>
+            <li>Fill <code>screen_name</code>, <code>process_stage</code>, <code>project_code/run_no/doc_ref</code>.</li>
+            <li>Upload screenshot image (PNG/JPG/WEBP/GIF/BMP, max 15MB).</li>
+            <li>System writes <code>capture_no</code> and stores file under <code>storage/captures/YYYY/MM/</code>.</li>
+            <li>Deletion is soft-delete and remains traceable in <code>app_soft_delete</code>.</li>
+        </ol>
+    </section>
+
+    <section class="card" id="static-pages">
+        <h2>5) Static Pages (Non-module)</h2>
+        <table>
+            <thead><tr><th>Page</th><th>Purpose</th><th>Output</th></tr></thead>
+            <tbody>
+                            <tr><td class="mono">index.php</td><td>Main shell and menu</td><td>Dashboard and module entry point</td></tr>
+                            <tr><td class="mono">report.php</td><td>Generic list/document report</td><td>List and selected doc print/PDF</td></tr>
+                            <tr><td class="mono">business_report.php</td><td>GL and HR reporting</td><td>Trial balance, ledger, tax, balance sheet, payroll</td></tr>
+                            <tr><td class="mono">manufacturing_report.php</td><td>Manufacturing analytics</td><td>BOM, routing, APS, SPC, traceability, maintenance</td></tr>
+                            <tr><td class="mono">manufacturing_dashboard.php</td><td>Manufacturing realtime dashboard</td><td>Load, status, sensor health</td></tr>
+                            <tr><td class="mono">erp_flow.php</td><td>Project to delivery orchestration</td><td>Flow run + timeline</td></tr>
+                            <tr><td class="mono">department_access.php</td><td>Department rights template</td><td>Apply department permission sets</td></tr>
+                            <tr><td class="mono">admin_access.php</td><td>Permission audit page</td><td>Per-user permission audit</td></tr>
+                            <tr><td class="mono">capture_screen.php</td><td>Screen capture evidence</td><td>Audit evidence upload/catalog</td></tr>
+                            <tr><td class="mono">docs/user_manual_full.html</td><td>This manual</td><td>Full static operational handbook</td></tr>
+                        </tbody>
+        </table>
+    </section>
+
+    <section class="card" id="module-catalog">
+        <h2>6) Module Catalog (Auto from config/*_modules.php)</h2>
+                                <h3>โครงการและโฟลว์ ERP / ERP Project &amp; Flow <span class="mono muted">(erp_project_flow)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">erp_project</td>
+                        <td>โครงการ ERP / ERP Projects</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_project</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_project</td>
+                        <td class="mono">report.php?module=erp_project&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">erp_flow_run</td>
+                        <td>รอบการทำงานโฟลว์ ERP / ERP Flow Runs</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_flow_run</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_flow_run</td>
+                        <td class="mono">report.php?module=erp_flow_run&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">erp_flow_step</td>
+                        <td>ขั้นตอนโฟลว์ ERP / ERP Flow Steps</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_flow_step</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_flow_step</td>
+                        <td class="mono">report.php?module=erp_flow_step&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">erp_flow_console</td>
+                        <td>คอนโซลโฟลว์ ERP / ERP Flow Console</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_flow_run</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_flow_console</td>
+                        <td class="mono">report.php?module=erp_flow_console&amp;mode=list</td>
+                        <td class="mono">erp_flow.php</td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>สิทธิ์การเข้าถึงตามแผนก ERP / ERP Department Access <span class="mono muted">(erp_admin_dept)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">erp_department</td>
+                        <td>แผนก / Departments</td>
+                        <td>26</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_department</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_department</td>
+                        <td class="mono">report.php?module=erp_department&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">erp_user_department</td>
+                        <td>ผู้ใช้ตามแผนก / User Departments</td>
+                        <td>26</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_user_department</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_user_department</td>
+                        <td class="mono">report.php?module=erp_user_department&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">erp_department_access</td>
+                        <td>เทมเพลตสิทธิ์แผนก / Department Permission Templates</td>
+                        <td>26</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_user_department</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_department_access</td>
+                        <td class="mono">report.php?module=erp_department_access&amp;mode=list</td>
+                        <td class="mono">department_access.php</td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ตรวจสอบและหลักฐาน ERP / ERP Audit &amp; Evidence <span class="mono muted">(erp_audit_capture)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">erp_screen_capture</td>
+                        <td>บันทึกการจับภาพหน้าจอ / Screen Capture Log</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_screen_capture</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=erp_screen_capture</td>
+                        <td class="mono">report.php?module=erp_screen_capture&amp;mode=list</td>
+                        <td class="mono">capture_screen.php</td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>บัญชีและภาษี / GL &amp; Tax Core <span class="mono muted">(gl_core)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">gl_accounts</td>
+                        <td>ผังบัญชี / Chart of Accounts</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_account</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_accounts</td>
+                        <td class="mono">report.php?module=gl_accounts&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">gl_journal</td>
+                        <td>สมุดรายวัน / Journal</td>
+                        <td>22</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">gl_journal</td>
+                        <td class="mono">gl_journal_line</td>
+                        <td class="mono">index.php?page=module&amp;module=gl_journal</td>
+                        <td class="mono">report.php?module=gl_journal&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">gl_vat_tx</td>
+                        <td>ภาษีมูลค่าเพิ่ม / VAT Transactions</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_vat_transaction</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_vat_tx</td>
+                        <td class="mono">report.php?module=gl_vat_tx&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">gl_withholding_tx</td>
+                        <td>ภาษีหัก ณ ที่จ่าย / Withholding Tax (WHT)</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_withholding_transaction</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_withholding_tx</td>
+                        <td class="mono">report.php?module=gl_withholding_tx&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>รายงานบัญชีและภาษี / GL &amp; Tax Reports <span class="mono muted">(gl_reports)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">gl_trial_balance_report</td>
+                        <td>รายงานงบทดลอง / Trial Balance</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_journal_line</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_trial_balance_report</td>
+                        <td class="mono">report.php?module=gl_trial_balance_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=gl_trial_balance</td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">gl_ledger_report</td>
+                        <td>รายงานบัญชีแยกประเภท / General Ledger</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_journal_line</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_ledger_report</td>
+                        <td class="mono">report.php?module=gl_ledger_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=gl_ledger</td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">gl_tax_report</td>
+                        <td>รายงานภาษีรายเดือน / VAT-WHT Summary</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_vat_transaction</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_tax_report</td>
+                        <td class="mono">report.php?module=gl_tax_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=gl_tax_summary</td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">gl_balance_sheet_report</td>
+                        <td>งบดุล / Balance Sheet Report</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">gl_account</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=gl_balance_sheet_report</td>
+                        <td class="mono">report.php?module=gl_balance_sheet_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=gl_balance_sheet</td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ทรัพยากรบุคคล / HR Core <span class="mono muted">(hr_core)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">hr_employee</td>
+                        <td>พนักงาน / Employees</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_employee</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_employee</td>
+                        <td class="mono">report.php?module=hr_employee&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">hr_attendance</td>
+                        <td>เวลาเข้าออก ขาด ลา มาสาย OT / Attendance &amp; OT</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_attendance</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_attendance</td>
+                        <td class="mono">report.php?module=hr_attendance&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">hr_leave_type</td>
+                        <td>ประเภทการลา / Leave Types</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_leave_type</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_leave_type</td>
+                        <td class="mono">report.php?module=hr_leave_type&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">hr_leave_request</td>
+                        <td>คำขอลางาน / Leave Requests</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_leave_request</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_leave_request</td>
+                        <td class="mono">report.php?module=hr_leave_request&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">hr_payroll_period</td>
+                        <td>รอบเงินเดือน / Payroll Periods</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_payroll_period</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_payroll_period</td>
+                        <td class="mono">report.php?module=hr_payroll_period&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">hr_policy</td>
+                        <td>นโยบายคำนวณตามกฎหมาย / Legal Payroll Policy</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_policy</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_policy</td>
+                        <td class="mono">report.php?module=hr_policy&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td class="mono">hr_payroll_line</td>
+                        <td>ผลคำนวณเงินเดือน / Payroll Lines</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_payroll_line</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_payroll_line</td>
+                        <td class="mono">report.php?module=hr_payroll_line&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>รายงานบุคคล / HR Reports <span class="mono muted">(hr_reports)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">hr_attendance_report</td>
+                        <td>รายงานสรุปเวลาเข้าออกงาน / Attendance Summary</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_attendance</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_attendance_report</td>
+                        <td class="mono">report.php?module=hr_attendance_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=hr_attendance</td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">hr_leave_report</td>
+                        <td>รายงานสรุปการลา / Leave Summary</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_leave_request</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_leave_report</td>
+                        <td class="mono">report.php?module=hr_leave_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=hr_leave</td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">hr_payroll_report</td>
+                        <td>รายงานสรุปเงินเดือน / Payroll Summary</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">hr_payroll_line</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=hr_payroll_report</td>
+                        <td class="mono">report.php?module=hr_payroll_report&amp;mode=list</td>
+                        <td class="mono">business_report.php?report=hr_payroll</td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>รายละเอียดสินค้า <span class="mono muted">(inventory)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">product_detail</td>
+                        <td>รายละเอียดสินค้า</td>
+                        <td>1</td>
+                        <td class="mono">single</td>
+                        <td class="mono">product</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=product_detail</td>
+                        <td class="mono">report.php?module=product_detail&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">adjust_stock</td>
+                        <td>ปรับยอดสินค้า</td>
+                        <td>2</td>
+                        <td class="mono">single</td>
+                        <td class="mono">stockcard</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=adjust_stock</td>
+                        <td class="mono">report.php?module=adjust_stock&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">adjust_price</td>
+                        <td>ปรับราคาสินค้า</td>
+                        <td>3</td>
+                        <td class="mono">single</td>
+                        <td class="mono">product_unit_price</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=adjust_price</td>
+                        <td class="mono">report.php?module=adjust_price&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">stock_card</td>
+                        <td>สต๊อกการ์ด</td>
+                        <td>4</td>
+                        <td class="mono">single</td>
+                        <td class="mono">stockcard</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=stock_card</td>
+                        <td class="mono">report.php?module=stock_card&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">transfer_stock</td>
+                        <td>โอนสินค้าระหว่างคลัง</td>
+                        <td>5</td>
+                        <td class="mono">single</td>
+                        <td class="mono">erp_stock_transfer</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=transfer_stock</td>
+                        <td class="mono">report.php?module=transfer_stock&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">create_project</td>
+                        <td>สร้างโครงการบาร์โค้ด</td>
+                        <td>29</td>
+                        <td class="mono">single</td>
+                        <td class="mono">product</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=create_project</td>
+                        <td class="mono">report.php?module=create_project&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td class="mono">print_barcode</td>
+                        <td>พิมพ์บาร์โค้ด</td>
+                        <td>30</td>
+                        <td class="mono">single</td>
+                        <td class="mono">product</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=print_barcode</td>
+                        <td class="mono">report.php?module=print_barcode&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>เจ้าหนี้ <span class="mono muted">(creditor)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">creditor_detail</td>
+                        <td>รายละเอียดเจ้าหนี้</td>
+                        <td>6</td>
+                        <td class="mono">single</td>
+                        <td class="mono">creditor_detail</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=creditor_detail</td>
+                        <td class="mono">report.php?module=creditor_detail&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">creditor_billing</td>
+                        <td>วางบิล</td>
+                        <td>7</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">creditor_billing</td>
+                        <td class="mono">creditor_billing_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=creditor_billing</td>
+                        <td class="mono">report.php?module=creditor_billing&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">creditor_paid</td>
+                        <td>ชำระเงิน</td>
+                        <td>8</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">creditor_paid</td>
+                        <td class="mono">creditor_paid_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=creditor_paid</td>
+                        <td class="mono">report.php?module=creditor_paid&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">creditor_outstanding</td>
+                        <td>เจ้าหนี้คงค้าง</td>
+                        <td>9</td>
+                        <td class="mono">placeholder</td>
+                        <td class="mono"></td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=creditor_outstanding</td>
+                        <td class="mono">report.php?module=creditor_outstanding&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ลูกหนี้ <span class="mono muted">(debtor)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">deptor_detail</td>
+                        <td>รายละเอียดลูกหนี้</td>
+                        <td>10</td>
+                        <td class="mono">single</td>
+                        <td class="mono">deptor</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=deptor_detail</td>
+                        <td class="mono">report.php?module=deptor_detail&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">deptor_billing</td>
+                        <td>วางบิล</td>
+                        <td>11</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">deptor_billing</td>
+                        <td class="mono">deptor_billing_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=deptor_billing</td>
+                        <td class="mono">report.php?module=deptor_billing&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">deptor_paid</td>
+                        <td>รับชำระเงิน</td>
+                        <td>12</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">deptor_payment</td>
+                        <td class="mono">deptor_paid_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=deptor_paid</td>
+                        <td class="mono">report.php?module=deptor_paid&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">deptor_billing_control</td>
+                        <td>ใบคุมวางบิล</td>
+                        <td>11</td>
+                        <td class="mono">single</td>
+                        <td class="mono">deptor_billing_detail</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=deptor_billing_control</td>
+                        <td class="mono">report.php?module=deptor_billing_control&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ซื้อ <span class="mono muted">(buy)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">buy_cash</td>
+                        <td>ซื้อสด</td>
+                        <td>14</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">bill_buy</td>
+                        <td class="mono">bill_buy_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=buy_cash</td>
+                        <td class="mono">report.php?module=buy_cash&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">buy_credit</td>
+                        <td>ซื้อเชื่อ</td>
+                        <td>15</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">bill_buy_credit</td>
+                        <td class="mono">bill_buy_credit_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=buy_credit</td>
+                        <td class="mono">report.php?module=buy_credit&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">buy_sendback</td>
+                        <td>ส่งคืน</td>
+                        <td>16</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">buy_return</td>
+                        <td class="mono">buy_return_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=buy_sendback</td>
+                        <td class="mono">report.php?module=buy_sendback&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">buy_order</td>
+                        <td>สั่งซื้อ</td>
+                        <td>17</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">bill_buy_order</td>
+                        <td class="mono">bill_buy_order_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=buy_order</td>
+                        <td class="mono">report.php?module=buy_order&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ขาย <span class="mono muted">(sale)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">sale_cash</td>
+                        <td>ขายสด</td>
+                        <td>18</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">bill_salecash</td>
+                        <td class="mono">bill_salecash_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=sale_cash</td>
+                        <td class="mono">report.php?module=sale_cash&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">sale_credit</td>
+                        <td>ขายเชื่อ</td>
+                        <td>19</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">bill_salecredit</td>
+                        <td class="mono">bill_salecredit_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=sale_credit</td>
+                        <td class="mono">report.php?module=sale_credit&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">sale_return</td>
+                        <td>รับคืน</td>
+                        <td>20</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">sale_return</td>
+                        <td class="mono">sale_return_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=sale_return</td>
+                        <td class="mono">report.php?module=sale_return&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">quotation</td>
+                        <td>ใบเสนอราคา</td>
+                        <td>21</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">quatation</td>
+                        <td class="mono">quatation_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=quotation</td>
+                        <td class="mono">report.php?module=quotation&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">booking</td>
+                        <td>ใบจอง</td>
+                        <td>22</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">bill_booking</td>
+                        <td class="mono">bill_booking_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=booking</td>
+                        <td class="mono">report.php?module=booking&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">client_receive</td>
+                        <td>รับสินค้าลูกค้า</td>
+                        <td>21</td>
+                        <td class="mono">master_detail</td>
+                        <td class="mono">clientrecive</td>
+                        <td class="mono">clientrecive_detail</td>
+                        <td class="mono">index.php?page=module&amp;module=client_receive</td>
+                        <td class="mono">report.php?module=client_receive&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>รายงาน <span class="mono muted">(report)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">report_buy</td>
+                        <td>รายงานซื้อ</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">bill_buy</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=report_buy</td>
+                        <td class="mono">report.php?module=report_buy&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">report_sale</td>
+                        <td>รายงานขาย</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">bill_salecash</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=report_sale</td>
+                        <td class="mono">report.php?module=report_sale&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">report_product_balance</td>
+                        <td>สินค้าคงเหลือ</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">product</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=report_product_balance</td>
+                        <td class="mono">report.php?module=report_product_balance&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">report_log</td>
+                        <td>รายงานบันทึกระบบ / Log Report</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">act_log</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=report_log</td>
+                        <td class="mono">report.php?module=report_log&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">report_product_activity</td>
+                        <td>รายงานความเคลื่อนไหวสินค้า</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">stockcard</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=report_product_activity</td>
+                        <td class="mono">report.php?module=report_product_activity&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">report_deptor_payment</td>
+                        <td>รายงานรับชำระ</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">deptor_payment</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=report_deptor_payment</td>
+                        <td class="mono">report.php?module=report_deptor_payment&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ตั้งค่า <span class="mono muted">(setup)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">setup_bill</td>
+                        <td>ตั้งค่า bill</td>
+                        <td>25</td>
+                        <td class="mono">single</td>
+                        <td class="mono">billid</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=setup_bill</td>
+                        <td class="mono">report.php?module=setup_bill&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">setup_user</td>
+                        <td>ตั้งค่าผู้ใช้</td>
+                        <td>26</td>
+                        <td class="mono">single</td>
+                        <td class="mono">unpw</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=setup_user</td>
+                        <td class="mono">report.php?module=setup_user&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">setup_sale_person</td>
+                        <td>พนักงานขาย</td>
+                        <td>25</td>
+                        <td class="mono">single</td>
+                        <td class="mono">unpw</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=setup_sale_person</td>
+                        <td class="mono">report.php?module=setup_sale_person&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">setup_server</td>
+                        <td>ตั้งค่าเซิร์ฟเวอร์ / Setup Server</td>
+                        <td>25</td>
+                        <td class="mono">single</td>
+                        <td class="mono">company</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=setup_server</td>
+                        <td class="mono">report.php?module=setup_server&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>วิศวกรรมการผลิต / MFG Engineering <span class="mono muted">(mfg_engineering)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">mfg_item_master</td>
+                        <td>ข้อมูลสินค้าเพื่อการผลิต / Item Master (MFG)</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_item</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_item_master</td>
+                        <td class="mono">report.php?module=mfg_item_master&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">mfg_bom_header</td>
+                        <td>หัว BOM (แยกเวอร์ชัน) / BOM Header (Versioned)</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_bom_header</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_bom_header</td>
+                        <td class="mono">report.php?module=mfg_bom_header&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">mfg_bom_line</td>
+                        <td>รายการ BOM / BOM Lines</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_bom_line</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_bom_line</td>
+                        <td class="mono">report.php?module=mfg_bom_line&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">mfg_routing_header</td>
+                        <td>หัวเส้นทางการผลิต (แยกเวอร์ชัน) / Routing Header (Versioned)</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_routing_header</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_routing_header</td>
+                        <td class="mono">report.php?module=mfg_routing_header&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">mfg_routing_step</td>
+                        <td>ขั้นตอนการผลิต / Routing Steps</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_routing_step</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_routing_step</td>
+                        <td class="mono">report.php?module=mfg_routing_step&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">mfg_work_center</td>
+                        <td>ศูนย์งาน / Work Centers</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_work_center</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_work_center</td>
+                        <td class="mono">report.php?module=mfg_work_center&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td class="mono">mfg_work_center_alt</td>
+                        <td>ศูนย์งานทางเลือก / Alternative Work Centers</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_work_center_alt</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_work_center_alt</td>
+                        <td class="mono">report.php?module=mfg_work_center_alt&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>8</td>
+                        <td class="mono">mfg_center_calendar</td>
+                        <td>ปฏิทินศูนย์งาน / Work Center Calendar</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_work_center_calendar</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_center_calendar</td>
+                        <td class="mono">report.php?module=mfg_center_calendar&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>9</td>
+                        <td class="mono">mfg_setup_matrix</td>
+                        <td>เมทริกซ์การตั้งเครื่อง (เปลี่ยนงาน) / Setup Matrix (Changeover)</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_setup_matrix</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_setup_matrix</td>
+                        <td class="mono">report.php?module=mfg_setup_matrix&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>10</td>
+                        <td class="mono">mfg_center_shift</td>
+                        <td>กะการทำงานศูนย์งาน / Work Center Shifts</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_work_center_shift</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_center_shift</td>
+                        <td class="mono">report.php?module=mfg_center_shift&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>วางแผนการผลิต (APS) / MFG Planning (APS) <span class="mono muted">(mfg_planning)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">mfg_production_order</td>
+                        <td>ใบสั่งผลิต / Production Orders</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_production_order</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_production_order</td>
+                        <td class="mono">report.php?module=mfg_production_order&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">mfg_aps_schedule</td>
+                        <td>กระดานตาราง APS / APS Schedule Board</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_aps_schedule</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_aps_schedule</td>
+                        <td class="mono">report.php?module=mfg_aps_schedule&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=aps_board</td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">mfg_supply_policy</td>
+                        <td>นโยบายอุปทาน (ROP/JIT) / Supply Policy (ROP/JIT)</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">supply_item_policy</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_supply_policy</td>
+                        <td class="mono">report.php?module=mfg_supply_policy&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">mfg_forecast</td>
+                        <td>พยากรณ์ความต้องการ / Demand Forecast</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">demand_forecast</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_forecast</td>
+                        <td class="mono">report.php?module=mfg_forecast&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">mfg_material_reservation</td>
+                        <td>จองวัตถุดิบ / Material Reservation</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_material_reservation</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_material_reservation</td>
+                        <td class="mono">report.php?module=mfg_material_reservation&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">mfg_purchase_req</td>
+                        <td>ใบขอซื้อ / Purchase Requisition</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">purchase_requisition</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_purchase_req</td>
+                        <td class="mono">report.php?module=mfg_purchase_req&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td class="mono">mfg_inventory_snapshot</td>
+                        <td>ภาพรวมสินค้าคงคลัง / Inventory Snapshot</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_inventory_snapshot</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_inventory_snapshot</td>
+                        <td class="mono">report.php?module=mfg_inventory_snapshot&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>หน้างานผลิตและ IoT / MFG Shop Floor &amp; IoT <span class="mono muted">(mfg_shopfloor)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">mfg_iot_device</td>
+                        <td>อุปกรณ์ IoT / IoT Devices</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">iot_device</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_iot_device</td>
+                        <td class="mono">report.php?module=mfg_iot_device&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">mfg_iot_log</td>
+                        <td>บันทึกเซนเซอร์ IoT / IoT Sensor Logs</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">iot_sensor_log</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_iot_log</td>
+                        <td class="mono">report.php?module=mfg_iot_log&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">mfg_job_sheet</td>
+                        <td>ใบงานดิจิทัล / Digital Job Sheets</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_digital_job_sheet</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_job_sheet</td>
+                        <td class="mono">report.php?module=mfg_job_sheet&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">mfg_lot</td>
+                        <td>ล็อตการผลิต / Production Lots</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_lot</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_lot</td>
+                        <td class="mono">report.php?module=mfg_lot&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">mfg_lot_consumption</td>
+                        <td>การใช้ล็อต / Lot Consumption</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_lot_consumption</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_lot_consumption</td>
+                        <td class="mono">report.php?module=mfg_lot_consumption&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">mfg_lot_dispatch</td>
+                        <td>จ่ายออกล็อต / Lot Dispatch</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_lot_dispatch</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_lot_dispatch</td>
+                        <td class="mono">report.php?module=mfg_lot_dispatch&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>คุณภาพการผลิต (QMS) / MFG Quality (QMS) <span class="mono muted">(mfg_quality)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">mfg_qms_plan</td>
+                        <td>แผนการตรวจสอบ / Inspection Plans</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">qms_inspection_plan</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_qms_plan</td>
+                        <td class="mono">report.php?module=mfg_qms_plan&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">mfg_qms_result</td>
+                        <td>ผลการตรวจสอบ / Inspection Results</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">qms_inspection_result</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_qms_result</td>
+                        <td class="mono">report.php?module=mfg_qms_result&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>ซ่อมบำรุงการผลิต / MFG Maintenance <span class="mono muted">(mfg_maintenance)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">mfg_asset_machine</td>
+                        <td>เครื่องจักรและสินทรัพย์ / Machines &amp; Assets</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">asset_machine</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_asset_machine</td>
+                        <td class="mono">report.php?module=mfg_asset_machine&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">mfg_runtime_log</td>
+                        <td>บันทึกเวลาทำงาน / Runtime Logs</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">machine_runtime_log</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_runtime_log</td>
+                        <td class="mono">report.php?module=mfg_runtime_log&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">mfg_maintenance_plan</td>
+                        <td>แผนซ่อมบำรุง / Maintenance Plans</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">maintenance_plan</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_maintenance_plan</td>
+                        <td class="mono">report.php?module=mfg_maintenance_plan&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">mfg_maintenance_wo</td>
+                        <td>ใบงานซ่อมบำรุง / Maintenance Work Orders</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">maintenance_work_order</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_maintenance_wo</td>
+                        <td class="mono">report.php?module=mfg_maintenance_wo&amp;mode=list</td>
+                        <td class="mono"></td>
+                    </tr>
+                                </tbody>
+            </table>
+                                <h3>รายงานการผลิต / MFG Reports <span class="mono muted">(mfg_reports)</span></h3>
+            <table style="margin-bottom:14px;">
+                <thead>
+                <tr>
+                    <th>#</th><th>Module Key</th><th>Title</th><th>Form</th><th>Mode</th>
+                    <th>Main Table</th><th>Detail Table</th><th>Menu URL</th><th>List Report</th><th>Custom URL</th>
+                </tr>
+                </thead>
+                <tbody>
+                                    <tr>
+                        <td>1</td>
+                        <td class="mono">mfg_dashboard</td>
+                        <td>แดชบอร์ดเรียลไทม์ / Realtime Dashboard</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_aps_schedule</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_dashboard</td>
+                        <td class="mono">report.php?module=mfg_dashboard&amp;mode=list</td>
+                        <td class="mono">manufacturing_dashboard.php</td>
+                    </tr>
+                                    <tr>
+                        <td>2</td>
+                        <td class="mono">mfg_report_bom_explosion</td>
+                        <td>รายละเอียดโครงสร้างผลิตภัณฑ์ BOM / Product BOM Structure Details</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_bom_header</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_bom_explosion</td>
+                        <td class="mono">report.php?module=mfg_report_bom_explosion&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=bom_explosion</td>
+                    </tr>
+                                    <tr>
+                        <td>3</td>
+                        <td class="mono">mfg_report_routing_plan</td>
+                        <td>เส้นทางผลิตและศูนย์งานทางเลือก / Routing &amp; Alternative WC</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_routing_step</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_routing_plan</td>
+                        <td class="mono">report.php?module=mfg_report_routing_plan&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=routing_plan</td>
+                    </tr>
+                                    <tr>
+                        <td>4</td>
+                        <td class="mono">mfg_report_resource_utilization</td>
+                        <td>การใช้ทรัพยากร / Resource Utilization</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_aps_schedule</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_resource_utilization</td>
+                        <td class="mono">report.php?module=mfg_report_resource_utilization&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=resource_utilization</td>
+                    </tr>
+                                    <tr>
+                        <td>5</td>
+                        <td class="mono">mfg_report_trace_backward</td>
+                        <td>ติดตามย้อนหลัง / Traceability Backward</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_lot_consumption</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_trace_backward</td>
+                        <td class="mono">report.php?module=mfg_report_trace_backward&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=trace_backward</td>
+                    </tr>
+                                    <tr>
+                        <td>6</td>
+                        <td class="mono">mfg_report_trace_forward</td>
+                        <td>ติดตามไปข้างหน้า / Traceability Forward</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_lot_dispatch</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_trace_forward</td>
+                        <td class="mono">report.php?module=mfg_report_trace_forward&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=trace_forward</td>
+                    </tr>
+                                    <tr>
+                        <td>7</td>
+                        <td class="mono">mfg_report_spc</td>
+                        <td>รายงานควบคุม SPC / SPC Control Report</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">qms_inspection_result</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_spc</td>
+                        <td class="mono">report.php?module=mfg_report_spc&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=spc</td>
+                    </tr>
+                                    <tr>
+                        <td>8</td>
+                        <td class="mono">mfg_report_maintenance_due</td>
+                        <td>ครบกำหนดซ่อมบำรุงเชิงป้องกัน / Preventive Maintenance Due</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">maintenance_plan</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_maintenance_due</td>
+                        <td class="mono">report.php?module=mfg_report_maintenance_due&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=maintenance_due</td>
+                    </tr>
+                                    <tr>
+                        <td>9</td>
+                        <td class="mono">mfg_report_maintenance_risk</td>
+                        <td>ความเสี่ยงซ่อมบำรุงเชิงคาดการณ์ / Predictive Maintenance Risk</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">machine_runtime_log</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_maintenance_risk</td>
+                        <td class="mono">report.php?module=mfg_report_maintenance_risk&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=maintenance_risk</td>
+                    </tr>
+                                    <tr>
+                        <td>10</td>
+                        <td class="mono">mfg_report_inventory_reorder</td>
+                        <td>จุดสั่งซื้ออัตโนมัติ / Auto Reorder Point</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">supply_item_policy</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_inventory_reorder</td>
+                        <td class="mono">report.php?module=mfg_report_inventory_reorder&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=inventory_reorder</td>
+                    </tr>
+                                    <tr>
+                        <td>11</td>
+                        <td class="mono">mfg_report_jit_plan</td>
+                        <td>แผน JIT / JIT Plan</td>
+                        <td>22</td>
+                        <td class="mono">single</td>
+                        <td class="mono">mfg_material_reservation</td>
+                        <td class="mono"></td>
+                        <td class="mono">index.php?page=module&amp;module=mfg_report_jit_plan</td>
+                        <td class="mono">report.php?module=mfg_report_jit_plan&amp;mode=list</td>
+                        <td class="mono">manufacturing_report.php?report=jit_plan</td>
+                    </tr>
+                                </tbody>
+            </table>
+            </section>
+
+    <section class="card" id="checklist">
+        <h2>7) Close Checklist</h2>
+        <ol>
+            <li>All buy/sell/production documents link by project, lot, and reference number.</li>
+            <li>Warehouse movement chain is complete: Main -> Production -> FG -> Packing -> Delivery.</li>
+            <li>GL posting is complete and verified with Trial Balance, Ledger, and Balance Sheet.</li>
+            <li>Critical evidence is captured in <code>capture_screen.php</code> with process stage tags.</li>
+            <li>Audit package can be produced by project/run with report + evidence references.</li>
+        </ol>
+    </section>
+</div>
+</body>
+</html>

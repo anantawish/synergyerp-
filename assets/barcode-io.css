@@ -1,0 +1,128 @@
+.bio-page {
+    background: #f4f7fb;
+    color: #1f2c3a;
+}
+
+.bio-wrap {
+    max-width: 1480px;
+}
+
+.bio-card {
+    border: 1px solid #dbe4ee;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(29, 54, 79, 0.05);
+}
+
+.bio-card .card-header {
+    background: #f9fbfd;
+    border-bottom: 1px solid #e2e9f0;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.scanner-box {
+    width: 100%;
+    min-height: 220px;
+    border: 2px dashed #cad7e6;
+    border-radius: 12px;
+    background: #fafcff;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.scanner-box video {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 10px;
+}
+
+.touch-btn {
+    min-height: 52px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+.direction-btn {
+    min-width: 128px;
+}
+
+.direction-btn.active {
+    color: #ffffff;
+}
+
+.direction-in.active {
+    background: #198754;
+    border-color: #198754;
+}
+
+.direction-out.active {
+    background: #dc3545;
+    border-color: #dc3545;
+}
+
+.bio-product-info {
+    border: 1px solid #e1e8f0;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fbfdff;
+}
+
+.bio-product-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.bio-stock-badge {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.6rem;
+}
+
+.search-results {
+    max-height: 260px;
+    overflow: auto;
+    border: 1px solid #d6e0ea;
+    border-radius: 10px;
+}
+
+.search-item {
+    cursor: pointer;
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.search-item:last-child {
+    border-bottom: 0;
+}
+
+.search-item:hover {
+    background: #eef5ff;
+}
+
+.recent-table td,
+.recent-table th {
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.bio-status {
+    min-height: 24px;
+}
+
+@media (max-width: 991px) {
+    .bio-wrap {
+        padding-inline: 0.5rem;
+    }
+
+    .touch-btn {
+        min-height: 56px;
+        font-size: 1.03rem;
+    }
+
+    .scanner-box {
+        min-height: 250px;
+    }
+}
+

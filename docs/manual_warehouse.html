@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Warehouse Department Manual | SynergyERP Department Manual</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --line: #d4deea;
+            --ink: #1f2d3d;
+            --muted: #50657d;
+            --accent: #0e7490;
+            --ok: #0f766e;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.45;
+        }
+        .wrap { max-width: 1180px; margin: 0 auto; padding: 18px; }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+        h1, h2, h3 { margin: 0 0 10px 0; color: #143a52; }
+        h1 { font-size: 1.5rem; }
+        h2 { font-size: 1.06rem; border-bottom: 2px solid #e4edf6; padding-bottom: 6px; }
+        h3 { font-size: .96rem; margin-top: 4px; }
+        .muted { color: var(--muted); }
+        .pill {
+            display: inline-block;
+            border: 1px solid #9eb3cb;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: .75rem;
+            margin-right: 6px;
+            background: #edf4fc;
+        }
+        .grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+        .col-6 { grid-column: span 6; }
+        .col-12 { grid-column: span 12; }
+        @media (max-width: 980px) {
+            .col-6 { grid-column: span 12; }
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: .88rem;
+        }
+        th, td {
+            border: 1px solid var(--line);
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        th {
+            background: #edf4fb;
+            text-align: left;
+            white-space: nowrap;
+        }
+        code {
+            background: #edf2f7;
+            border: 1px solid #d7e1ec;
+            border-radius: 4px;
+            padding: 1px 4px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        }
+        .checklist li { margin: 4px 0; }
+        .ok { color: var(--ok); }
+        a { color: var(--accent); text-decoration: none; }
+        @media print {
+            body { background: #fff; }
+            .card { border-color: #b9c4d3; }
+            a { color: #000; text-decoration: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <section class="card">
+        <h1>Warehouse Department Manual</h1>
+        <div class="muted">Generated: 2026-04-16 14:40:55 | Static File: <code>docs/manual_warehouse.html</code></div>
+        <div style="margin-top:8px;">
+            <span class="pill">WAREHOUSE</span>
+            <span class="pill">Upstream: Purchasing receipts, Production release, Sales delivery plan</span>
+            <span class="pill">Downstream: Production line, Packing, Sales shipment, Audit</span>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Role Objective</h2>
+        <p style="margin:0;">Control stock movement across Main, Production, Finished Goods, and Packing warehouses with traceable transfers.</p>
+    </section>
+
+    <section class="card">
+        <h2>Screen Scope</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Module Key</th>
+                <th>Open Screen</th>
+                <th>Main Purpose</th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                    <td>1</td>
+                    <td><code>stock_card</code></td>
+                    <td><code>index.php?page=module&amp;module=stock_card</code></td>
+                    <td>Inspect movement ledger</td>
+                </tr>
+                            <tr>
+                    <td>2</td>
+                    <td><code>transfer_stock</code></td>
+                    <td><code>index.php?page=module&amp;module=transfer_stock</code></td>
+                    <td>Post transfer between warehouses</td>
+                </tr>
+                            <tr>
+                    <td>3</td>
+                    <td><code>mfg_inventory_snapshot</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_inventory_snapshot</code></td>
+                    <td>Current on-hand and reserved balance</td>
+                </tr>
+                            <tr>
+                    <td>4</td>
+                    <td><code>mfg_lot</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_lot</code></td>
+                    <td>FG lot registration</td>
+                </tr>
+                            <tr>
+                    <td>5</td>
+                    <td><code>mfg_lot_dispatch</code></td>
+                    <td><code>index.php?page=module&amp;module=mfg_lot_dispatch</code></td>
+                    <td>Lot dispatch to next warehouse or customer</td>
+                </tr>
+                            <tr>
+                    <td>6</td>
+                    <td><code>client_receive</code></td>
+                    <td><code>index.php?page=module&amp;module=client_receive</code></td>
+                    <td>Delivery confirmation</td>
+                </tr>
+                        </tbody>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Daily Checklist</h2>
+        <div class="grid">
+            <div class="col-6 card" style="margin:0;">
+                <h3>Start of Day</h3>
+                <ol class="checklist">
+                                            <li>Check inbound schedule and outbound commitments.</li>
+                                            <li>Verify stock discrepancies from prior shift.</li>
+                                            <li>Prepare transfer routes: Main -&gt; Production -&gt; FG -&gt; Packing.</li>
+                                    </ol>
+            </div>
+            <div class="col-6 card" style="margin:0;">
+                <h3>Operations</h3>
+                <ol class="checklist">
+                                            <li>Post all transfers with project_code, lot_no, qty, and warehouse route.</li>
+                                            <li>Validate available qty before issue to production.</li>
+                                            <li>Receive FG from production and dispatch to packing in sequence.</li>
+                                            <li>Confirm shipment issue to Sales/Delivery documents.</li>
+                                    </ol>
+            </div>
+            <div class="col-12 card" style="margin:0;">
+                <h3>Close of Day</h3>
+                <ol class="checklist">
+                                            <li>Reconcile stock_card against transfer and dispatch records.</li>
+                                            <li>Verify no negative stock remains unresolved.</li>
+                                            <li>Capture final movement summary screens.</li>
+                                    </ol>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Audit Evidence To Capture</h2>
+        <ol class="checklist">
+                            <li>Transfer posting screen for Main -&gt; Production.</li>
+                            <li>FG receipt and FG -&gt; Packing transfer records.</li>
+                            <li>Shipment dispatch linked to customer document.</li>
+                    </ol>
+        <p class="muted" style="margin:8px 0 0 0;">Use <code>capture_screen.php</code> and tag each screenshot with <code>module_key</code>, <code>process_stage</code>, <code>project_code</code>, <code>run_no</code>, and <code>doc_ref</code>.</p>
+    </section>
+
+    <section class="card">
+        <h2>Role KPIs</h2>
+        <ul class="checklist">
+                            <li class="ok">Inventory accuracy &gt;= target.</li>
+                            <li class="ok">Transfer posting latency within shift SLA.</li>
+                            <li class="ok">Zero untraceable lot movement.</li>
+                    </ul>
+    </section>
+
+    <section class="card">
+        <h2>Related Manuals</h2>
+        <ul>
+            <li><a href="user_manual_departments.html">Department Manual Index</a></li>
+            <li><a href="user_manual_full.html">Full ERP Manual (All Screens)</a></li>
+        </ul>
+        <p class="muted" style="margin:0;">Generated by <code>scripts/build_department_manuals.php</code>.</p>
+    </section>
+</div>
+</body>
+</html>
+    
