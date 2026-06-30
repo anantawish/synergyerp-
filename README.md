@@ -9,6 +9,28 @@ server-side table APIs, and legacy-compatible module mappings.
 การผลิต รายงาน และสิทธิ์ผู้ใช้ โดยย้าย logic จากระบบ stock เดิมมาเป็นเว็บ
 PHP/MySQL ที่ใช้งานผ่าน XAMPP ได้
 
+## Public Edition and Commercial Services
+
+This public repository is the free ERP baseline. It is meant to show real
+working code, database structure, documentation, and operational coverage before
+selling paid implementation work.
+
+Commercial work should be sold around:
+
+- installation and server deployment
+- data migration from Excel, old stock systems, or accounting exports
+- custom modules for each business
+- monthly maintenance, backup, and support
+- RAG AI assistant for ERP manuals, reports, documents, and read-only business
+  data
+
+See:
+
+- `docs/PUBLIC_EDITION.md`
+- `docs/SERVICE_OFFER.md`
+- `docs/RAG_AI_BLUEPRINT.md`
+- `ai/README.md`
+
 ## Stack
 
 - PHP 8+

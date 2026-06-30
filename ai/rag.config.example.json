@@ -1,0 +1,42 @@
+{
+  "project": "synergyerp",
+  "assistant_name": "SynergyERP Operations AI",
+  "edition": "paid-rag-addon",
+  "demo_safe": true,
+  "provider": {
+    "llm": "configure-at-runtime",
+    "embeddings": "configure-at-runtime",
+    "api_key_env": "AI_PROVIDER_API_KEY"
+  },
+  "retrieval": {
+    "vector_store": "configure-at-runtime",
+    "top_k": 8,
+    "require_citations": true
+  },
+  "sources": [
+    "manuals",
+    "sop",
+    "document_templates",
+    "erp_reports",
+    "read_only_database_views"
+  ],
+  "suggested_database_views": [
+    "ai_sales_summary",
+    "ai_purchase_summary",
+    "ai_inventory_balance",
+    "ai_stock_movement",
+    "ai_debtor_creditor_summary",
+    "ai_gl_trial_balance",
+    "ai_hr_attendance_summary",
+    "ai_mfg_lot_traceability",
+    "ai_mfg_qc_summary"
+  ],
+  "guardrails": [
+    "do_not_post_transactions",
+    "do_not_approve_business_actions",
+    "cite_sources",
+    "apply_role_and_department_filters",
+    "redact_sensitive_business_fields",
+    "log_ai_usage"
+  ]
+}
